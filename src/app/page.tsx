@@ -4,10 +4,10 @@ import { cookies } from "next/headers"
 import Link from "next/link";
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
-const supabase = createServerComponentClient({cookies});
 
 const getAllLessons = async () => {
   // これは、SSRかSSGかでいうとSSGになるとのこと
+  const supabase = createServerComponentClient({cookies});
   const {data: lessons } = await supabase.from("lesson").select("*");
   return lessons
 }
@@ -25,7 +25,7 @@ export default async function Home() {
         {/* ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー */}
         <div className="flex flex-col gap-4" >
           {lessons?.map((lesson) => (
-            <Link href={'${lesson.id}'} key={lesson.id}>
+            <Link href={`${lesson.id}`} key={lesson.id}>
         <Card>
             <CardHeader>
               <CardTitle>{lesson.title}</CardTitle>
