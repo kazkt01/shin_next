@@ -5,3 +5,13 @@ supabaseでテーブル作成してもローレベルセキュリティーを設
 SSGとSSRの違いをもう一度学びなおそう。
 
 結局プログラミングって基礎的なこととかやってることって変わらんねんな
+
+
+supabaseのCLIが存在する
+。
+
+
+npx supabase gen types typescript --project-id "addsrvklvxugjpocecnx" > /lib/database.types.ts
+
+
+    "db:types":"npx supabase gen types typescript --project-id "addsrvklvxugjpocecnx" >src/lib/database.types.ts" 

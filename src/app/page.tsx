@@ -3,22 +3,20 @@ import Image from "next/image";
 import { cookies } from "next/headers"
 import Link from "next/link";
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Database } from "@/lib/database.types";
 
 
 const getAllLessons = async () => {
   // これは、SSRかSSGかでいうとSSGになるとのこと
-  const supabase = createServerComponentClient({cookies});
+  // <Database>というジェネリクスという書き方で方を動的に指定できる？
+  const supabase = createServerComponentClient<Database>({cookies});
   const {data: lessons } = await supabase.from("lesson").select("*");
   return lessons
 }
 
 
 export default async function Home() {
-
   const lessons = await getAllLessons();
-
-  console.log(lessons);
-
   return (
       <main className="w-full max-w-3xl mx-auto my-16 px-2">
         Hello
