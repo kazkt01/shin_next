@@ -17,6 +17,7 @@ const getDetailLesson = async (
         .eq("id", id)
         .single();
     return lesson;
+    
 }
 
 const LessonDetailPage = async ({params}: {params: {id: number}}) =>  {
