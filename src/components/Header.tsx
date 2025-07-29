@@ -6,9 +6,7 @@ import AuthServerButton from "./auth/AuthServerButton";
 
 const header = () => {
 
-  const handleSignin = async () => {
-
-  }
+ 
   return (
     <div className="flex py-4 px-6 border-b  border-gray-200 ">
         <Link href={'/'}>

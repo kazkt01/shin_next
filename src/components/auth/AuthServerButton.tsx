@@ -8,8 +8,6 @@ const AuthServerButton = async () => {
     const {data : user} = await supabase.auth.getSession();
     const session = user.session;
     console.log(session);
-    
-
 
   return <AuthClientButton session={session}/>
 
