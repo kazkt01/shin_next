@@ -20,9 +20,17 @@ const getDetailLesson = async (
     
 }
 
-const LessonDetailPage = async ({params}: {params: {id: number}}) =>  {
-    const supabase = createServerComponentClient<Database>({cookies});
-    const lesson = await getDetailLesson(params.id, supabase);
+type LessonDetailPageProps = {
+    params: {
+      id: string;
+    };
+  };
+
+const LessonDetailPage = async ({params}: LessonDetailPageProps) =>  {
+    const supabase = createServerComponentClient<Database>({cookies : () => cookies(),});
+
+    const id = Number(params.id);
+    const lesson = await getDetailLesson(id, supabase);
 
 
     return(

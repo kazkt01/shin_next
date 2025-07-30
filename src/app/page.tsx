@@ -11,7 +11,7 @@ const getAllLessons = async () => {
   // <Database>というジェネリクスという書き方で方を動的に指定できる？
   const supabase = createServerComponentClient<Database>({cookies});
   const {data: lessons } = await supabase.from("lesson").select("*");
-  return lessons
+  return lessons;
 }
 
 
