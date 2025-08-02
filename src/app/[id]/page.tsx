@@ -21,16 +21,16 @@ const getDetailLesson = async (
 }
 
 type LessonDetailPageProps = {
-    params: {
+    params: Promise<{
       id: string;
-    };
+    }>;
   };
 
 const LessonDetailPage = async ({params}: LessonDetailPageProps) =>  {
     const supabase = createServerComponentClient<Database>({cookies : () => cookies(),});
 
-    const id = Number(params.id);
-    const lesson = await getDetailLesson(id, supabase);
+    const { id } = await params;
+    const lesson = await getDetailLesson(Number(id), supabase);
 
 
     return(
