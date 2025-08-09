@@ -9,34 +9,31 @@ import {cookies} from "next/headers";
 
 export async function POST(req: NextRequest) {
     // ここで初期化
-    const supabase = createRouteHandlerClient({cookies})
+    const supabase = createRouteHandlerClient({cookies});
 
+    // 簡易的なアクセス制限
+    const query = req.nextUrl.searchParams.get("API_ROUTE_SECRET");
+    if (query !== process.env.API_ROUTE_SECRET) { 
+        return NextResponse.json({
+            message: "APIを叩く権限がありません。"
+        }); 
+    }
     
-    const date = await req.json();
-    const {id, email} = date;
+    // 更新対象のユーザーのid（UUID）とstripe顧客作成用のemailを受け取る。
+    const data = await req.json();
+    const {id, email} = data;
     
+    // Stripeの顧客を作成
+    // 正常ならcustomer.idが帰ってくる。
     const stripe = new initiStripe(process.env.STRIPE_SECRET_KEY!);
+    const customer = await stripe.customers.create({email});
     
-    const customer = await stripe.customers.create({
-        email,
-    });
-
-    const { error } =  await supabase
-    .from("profile")
-    .update({
-        stripe_customer: customer.id,
-    })
+    await supabase.from("profile")
+    .update({ stripe_customer: customer.id })
     .eq("id", id);
 
-    console.log(error);
-
-
-    return NextResponse.json({
-        message: `stripe customer created: ${customer.id}`,
-    })
+    return NextResponse.json({ message: `stripe customer created: ${customer.id}`})
 }
-
-
 
 
 
