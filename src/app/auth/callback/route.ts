@@ -10,7 +10,12 @@ export async function GET(request: NextRequest) {
     const code = requestURL.searchParams.get("code");
 
     if (code){
-        const supabase = createRouteHandlerClient({ cookies });
+        // const supabase = createRouteHandlerClient({ cookies });
+        // cookies は「関数で返す」＆ Promise を返す
+        const supabase = createRouteHandlerClient({
+            cookies: () => cookies(),
+        });
+
         await supabase.auth.exchangeCodeForSession(code);   
     }
     return NextResponse.redirect(requestURL.origin);

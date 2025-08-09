@@ -11,6 +11,8 @@ node -e "console.log(crypto.randomBytes(32).toString('hex'))"
 
 RLS　←ローレベルセキュリティーの略
 
+
+
 2025/08/02
 supabase側でアクストークンごと削除してしまったので最後
 ログイン認証のところからやり直す必要があるっぽい
