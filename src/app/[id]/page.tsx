@@ -27,7 +27,7 @@ type LessonDetailPageProps = {
   };
 
 const LessonDetailPage = async ({params}: LessonDetailPageProps) =>  {
-    const supabase = createServerComponentClient<Database>({cookies : () => cookies(),});
+    const supabase = createServerComponentClient<Database>({cookies : () => cookies()});
 
     const { id } = await params;
     const lesson = await getDetailLesson(Number(id), supabase);

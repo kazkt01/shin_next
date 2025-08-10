@@ -14,9 +14,12 @@ export async function POST(req: NextRequest) {
 
     // Next.jsの最新版に合わせる。
 
-    const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    // const cookieStore = cookies();
+    // const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
 
+    const supabase = createRouteHandlerClient({
+          cookies: () => cookies(), // ← ここが肝
+      });
 
 
 

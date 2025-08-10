@@ -9,7 +9,10 @@ import { Database } from "@/lib/database.types";
 const getAllLessons = async () => {
   // これは、SSRかSSGかでいうとSSGになるとのこと
   // <Database>というジェネリクスという書き方で方を動的に指定できる？
-  const supabase = createServerComponentClient<Database>({cookies});
+  // const supabase = createServerComponentClient<Database>({cookies});
+  const supabase = createServerComponentClient<Database>({
+    cookies: () => cookies(), // ← これでOK（内部でawaitされる）
+  });
   const {data: lessons } = await supabase.from("lesson").select("*");
   return lessons;
 }
